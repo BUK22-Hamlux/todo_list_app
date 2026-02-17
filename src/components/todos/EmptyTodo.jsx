@@ -1,16 +1,10 @@
 import { useState } from "react";
-import initialTodos from "../todos/todos";
-import CreateTodo from "./CreateTodo";
+import CreateTodo from "../modal/CreateTodoModal";
+import { UNSAFE_invariant } from "react-router-dom";
 
-function EmptyTodo(){
+function EmptyTodo({ onSave }){
 
     const [isFormOpen, setIsFormOpen] = useState(false);
-    const [todoList, setTodoList] = useState(initialTodos);
-
-    const addTask = (newTodo) => {
-      setTodoList([newTodo, ...todoList]);
-      setIsFormOpen(false);
-    };
   
     return (
         <div className="flex-1 flex flex-col items-center justify-center text-center p-6">
@@ -26,12 +20,18 @@ function EmptyTodo(){
             >
               + Create New Task
             </button>
+            
             {isFormOpen && (
-            <CreateTodo onSave={addTask} onClose={() => setIsFormOpen(false)} />
+            <CreateTodo 
+                onSave={(todo) => {
+                    onSave(todo);
+                    setIsFormOpen(false);
+                }} 
+                onClose={() => setIsFormOpen(false)} 
+            />
           )}
           </div>
         </div>
-
     )
 }
 

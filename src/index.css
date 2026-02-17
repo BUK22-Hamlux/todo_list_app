@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  /* Ensure the selector exactly matches the class on your <html> tag */
+  --variant-dark: :where(.dark) &;
+}

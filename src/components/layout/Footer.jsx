@@ -1,4 +1,6 @@
+
 function Footer({ selectedCount, onClear, onDelete }) {
+
     if (selectedCount === 0) return null;
     
     return (

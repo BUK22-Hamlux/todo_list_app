@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
-import CreateTodo from "./CreateTodo";
-import DeleteModal from "./DeleteModal";
+import CreateTodo from "../modal/CreateTodoModal";
+import DeleteModal from "../modal/DeleteModal";
 import { Plus } from 'lucide-react';
 
 function ListTodo({ todoList, onSave, selectedTasks, toggleTaskSelection, onDeleteTasks }) {
@@ -27,8 +27,8 @@ function ListTodo({ todoList, onSave, selectedTasks, toggleTaskSelection, onDele
     };
 
     return (
-        <div className="flex-1 overflow-hidden flex flex-col">
-            <div className="overflow-y-auto my-4 rounded-xl p-4 flex flex-col gap-4">
+        <div className="flex-1 overflow-hidden flex flex-col pt-16">
+            <div className="overflow-y-auto inset my-4 rounded-xl p-4 flex flex-col gap-4">
                 {todoList.map((todo) => (
                     <TodoItem
                         key={todo.id}
@@ -43,12 +43,21 @@ function ListTodo({ todoList, onSave, selectedTasks, toggleTaskSelection, onDele
 
             <button
                 onClick={() => setIsFormOpen(true)}
+                title="Add task"
                 className="fixed bg-green-500 p-3 rounded-full bottom-24 right-8 shadow-lg"
             >
                 <Plus className="text-white w-8 h-8" />
             </button>
 
-            {isFormOpen && <CreateTodo onSave={onSave} onClose={() => setIsFormOpen(false)} />}
+            {isFormOpen &&
+            <CreateTodo 
+                onSave={(todo) => {
+                    onSave(todo);
+                    setIsFormOpen(false);
+                }} 
+                onClose={() => setIsFormOpen(false)}
+            />
+            }
 
             {showDeleteModal && (
                 <DeleteModal
