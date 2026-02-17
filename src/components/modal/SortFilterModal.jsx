@@ -1,5 +1,5 @@
 import { X, Calendar, Clock, ArrowUpDown } from "lucide-react";
-import Overlay from "../common/overlay";
+import Overlay from "./Overlay";
 
 function SortFilterModal({
   onClose,
